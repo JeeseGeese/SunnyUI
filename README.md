@@ -6,9 +6,11 @@
 
 ## Description
 
-Sunny UI is the interactive user interface being developed for Sunny the
-Sunflower — an animatronic mascot/robot by Do Better Design. This repo is a
-React component library and working prototype of that interface: a boot
+The UI designed to interface with Sunny. There will be different versions
+depending on the different hardware the different builds of Sunny will have
+— this repo is the first of those: a React component library and working
+prototype of Sunny the Sunflower's interactive interface (an animatronic
+mascot/robot by Do Better Design), for the desktop/browser baseline. A boot
 sequence, a lit-up nav bar, and a character viewport with several animated
 states that auto-cycle when left idle.
 
