@@ -75,6 +75,14 @@ offset as a difference of two measured numbers. Visual "looks right" checks
 are not a substitute for pixel measurement when two different source assets
 need to align.
 
+**Harvest existing assets before building, not after.** The pV1.0 asset
+inventory — a contact-sheet visual scan of generically-named Downloads
+images — surfaced a Sunny wiring diagram, an unintegrated Idle-animation
+design handoff, and nav-bar animation keyframe sheets, all discovered
+*after* most of this session's features were already built. Run that
+harvest at the start of feature work instead — see `docs/HANDOFF.md`'s
+"Pre-Feature Asset Harvest" section for the checklist.
+
 ## Animation Lessons
 
 Concrete implementation patterns actually used in this codebase:

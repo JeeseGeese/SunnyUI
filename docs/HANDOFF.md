@@ -19,6 +19,40 @@ headbang, gyrate, rail rider) that auto-cycle when left alone.
 `main`. This is the known-good preserved baseline. Do not force-push over
 it or rewrite its history.
 
+## Pre-Feature Asset Harvest
+
+**Before starting any significant new feature, animation, redesign, or
+integration, check what already exists before building something new.**
+
+1. Check `src/assets/sunny/` (production assets) and
+   `SunnyUI-Source-Assets/` (source archive, if populated) for material
+   relevant to the feature.
+2. Check `docs/SUNNY_ASSET_INVENTORY.md` and `sunny_asset_inventory.csv`
+   for what's already catalogued in Downloads.
+3. If a relevant Downloads folder/zip contains many generically-named
+   images (`image.png`, `image (1).png`, numbered exports, screenshots,
+   unlabeled Claude Design/ChatGPT exports), **generate a contact-sheet
+   montage first** — tile thumbnails into one grid image and inspect that,
+   rather than skipping past them or opening dozens of files one at a time.
+4. Visually scan the contact sheet(s) for anything relevant.
+5. Open any matching zips or design-handoff packages found.
+6. Review previously-approved reference/keyframe material before designing
+   something new.
+7. Only then start implementing.
+
+This is a **context-gathering step, not a redesign step** — don't move,
+rename, or delete anything to do it, just look.
+
+**Why this is a rule, not a suggestion:** the pV1.0 asset inventory pass
+(done *after* most of this session's features were already built) found a
+Sunny wiring diagram, an unintegrated Idle-animation design handoff, and
+several nav-bar animation keyframe sheets — all sitting in Downloads under
+generic `ChatGPT Image <date>.png` filenames. That material would have
+directly informed earlier feature work if checked first. Skipping this step
+risks rebuilding something that already exists, missing approved reference
+art, losing continuity with prior design decisions, and wasted work — do
+the harvest **before** building, not as a retrospective cleanup pass.
+
 ## How to run it
 
 ```bash
