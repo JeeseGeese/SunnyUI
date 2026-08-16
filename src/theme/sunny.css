@@ -1,0 +1,334 @@
+:root {
+  --sunny-yellow: #FFD447;
+  --sunny-sunflower: #F6B92B;
+  --sunny-orange: #FF8A30;
+  --sunny-green: #63B857;
+  --sunny-lime: #A7D74D;
+  --sunny-blue: #3B82F6;
+  --sunny-cream: #FFF8E7;
+  --sunny-paper: #FFFDF5;
+  --sunny-charcoal: #282828;
+  --sunny-charcoal-2: #3A3A3A;
+  --sunny-muted: #737373;
+  --sunny-danger: #E5534B;
+  --sunny-warning: #F2A93B;
+  --sunny-success: #4DAA68;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 24px rgba(40, 40, 40, 0.10);
+  --shadow-button: 0 5px 0 rgba(40, 40, 40, 0.22);
+
+  font-family: Inter, ui-rounded, "Arial Rounded MT Bold", system-ui, sans-serif;
+  color: var(--sunny-charcoal);
+  background: var(--sunny-cream);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 212, 71, .38), transparent 26%),
+    radial-gradient(circle at 90% 18%, rgba(99, 184, 87, .18), transparent 24%),
+    var(--sunny-cream);
+}
+
+/*
+  Background appearance (Light / Dark / Party) is applied via
+  [data-sunny-background] on <html> — see src/hooks/useSunnyBackgroundMode.js.
+  It only ever touches the page canvas (body) and text that sits directly on
+  that canvas (header + bare section titles). Cards/panels keep their normal
+  --sunny-paper surface and charcoal text untouched in every mode, which is
+  what keeps every existing component readable without modifying them.
+*/
+
+:root[data-sunny-background="dark"] body {
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(255, 212, 71, .12), transparent 30%),
+    radial-gradient(circle at 90% 18%, rgba(99, 184, 87, .10), transparent 26%);
+  background-color: #1C1917;
+  background-attachment: fixed;
+}
+
+:root[data-sunny-background="party"] body {
+  background-color: #1B1420;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 150% 150%;
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(255, 212, 71, .60), transparent 38%),
+    radial-gradient(circle at 85% 10%, rgba(255, 138, 48, .50), transparent 40%),
+    radial-gradient(circle at 15% 85%, rgba(99, 184, 87, .48), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(199, 125, 255, .52), transparent 42%),
+    radial-gradient(circle at 50% 50%, rgba(255, 105, 180, .28), transparent 55%);
+  animation: sunnyPartyDrift 26s ease-in-out infinite;
+}
+
+@keyframes sunnyPartyDrift {
+  0%, 100% {
+    background-position: 0% 10%, 100% 0%, 10% 100%, 100% 100%, 50% 50%;
+  }
+  50% {
+    background-position: 10% 25%, 85% 20%, 25% 80%, 80% 80%, 55% 45%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-sunny-background="party"] body {
+    animation: none;
+    background-position: 5% 15%, 90% 10%, 15% 90%, 90% 90%, 50% 50%;
+  }
+}
+
+/* Text sitting directly on the canvas (no panel behind it) needs to stay
+   readable against the darker Dark/Party backgrounds. */
+:root[data-sunny-background="dark"] .sunny-h1,
+:root[data-sunny-background="party"] .sunny-h1,
+:root[data-sunny-background="dark"] .sunny-eyebrow,
+:root[data-sunny-background="party"] .sunny-eyebrow,
+:root[data-sunny-background="dark"] .sunny-section-title,
+:root[data-sunny-background="party"] .sunny-section-title {
+  color: var(--sunny-cream);
+}
+
+:root[data-sunny-background="dark"] .sunny-muted,
+:root[data-sunny-background="party"] .sunny-muted {
+  color: rgba(255, 248, 231, .62);
+}
+
+/* ...but the same classes are also used inside light-surfaced .sunny-panel
+   cards, whose fill stays put even though their border now reacts (below) —
+   so re-darken text there. */
+:root[data-sunny-background="dark"] .sunny-panel .sunny-eyebrow,
+:root[data-sunny-background="party"] .sunny-panel .sunny-eyebrow,
+:root[data-sunny-background="dark"] .sunny-panel .sunny-section-title,
+:root[data-sunny-background="party"] .sunny-panel .sunny-section-title {
+  color: var(--sunny-charcoal);
+}
+
+/*
+  .sunny-panel (Status/Diag section cards) and .sunny-status-chip (the Home
+  page's Body Lights/Motor/Audio pills) keep their normal light fill in every
+  mode, but their border picks up that mode's own accent — the same colors
+  SunnyBackgroundPicker's cards use for Light/Dark/Party, so the picker and
+  the rest of the UI read as one choice. Party uses a padding-box/border-box
+  double-background instead of `border-image` specifically so the border
+  still respects border-radius (border-image ignores it and squares off
+  rounded corners).
+*/
+:root[data-sunny-background="light"] .sunny-panel,
+:root[data-sunny-background="light"] .sunny-status-chip {
+  border-color: var(--sunny-sunflower);
+}
+
+:root[data-sunny-background="dark"] .sunny-panel,
+:root[data-sunny-background="dark"] .sunny-status-chip {
+  border-color: #9AA3B2;
+}
+
+:root[data-sunny-background="party"] .sunny-panel,
+:root[data-sunny-background="party"] .sunny-status-chip {
+  border-color: transparent;
+  background-image:
+    linear-gradient(rgba(255, 253, 245, .94), rgba(255, 253, 245, .94)),
+    linear-gradient(135deg, #FFE59A, #FFB199, #C9F2C0, #E3C6FF);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+:root[data-sunny-background="party"] .sunny-status-chip {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .76), rgba(255, 255, 255, .76)),
+    linear-gradient(135deg, #FFE59A, #FFB199, #C9F2C0, #E3C6FF);
+}
+
+/*
+  The Sunny character viewport (.sunny-character-viewport, opted into via
+  SunnyAnimationViewport's className prop) is the one card whose fill also
+  reacts to background mode — .sunny-panel/.sunny-status-chip above only
+  react by border. --sunny-viewport-bg/--sunny-viewport-glow feed
+  SunnyAnimationViewport's inline background styles, which default to the
+  untouched --sunny-paper/glow when these are unset (light mode).
+*/
+:root[data-sunny-background="dark"] .sunny-character-viewport {
+  --sunny-viewport-bg: var(--sunny-charcoal-2);
+  --sunny-viewport-glow: radial-gradient(circle at center, rgba(255, 212, 71, .16), transparent 62%);
+}
+
+:root[data-sunny-background="dark"] .sunny-character-viewport .sunny-viewport-header,
+:root[data-sunny-background="party"] .sunny-character-viewport .sunny-viewport-header {
+  color: var(--sunny-cream);
+}
+
+:root[data-sunny-background="party"] .sunny-character-viewport {
+  --sunny-viewport-bg:
+    radial-gradient(circle at 20% 20%, rgba(255, 212, 71, .42), transparent 42%),
+    radial-gradient(circle at 85% 15%, rgba(255, 138, 48, .36), transparent 44%),
+    radial-gradient(circle at 20% 85%, rgba(99, 184, 87, .34), transparent 44%),
+    radial-gradient(circle at 85% 85%, rgba(199, 125, 255, .38), transparent 46%),
+    #2A2130;
+  --sunny-viewport-glow: radial-gradient(circle at center, rgba(255, 255, 255, .12), transparent 62%);
+  background-repeat: no-repeat;
+  background-size: 160% 160%;
+  animation: sunnyPartyDrift 26s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-sunny-background="party"] .sunny-character-viewport {
+    animation: none;
+  }
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.sunny-shell {
+  width: min(100%, 900px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+.sunny-panel {
+  background: rgba(255, 253, 245, 0.94);
+  border: 2px solid rgba(40, 40, 40, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.sunny-stack {
+  display: grid;
+  gap: 4px;
+  /*
+    .sunny-shell (the same element) sets min-height:100vh. Whenever a page's
+    actual content is shorter than the viewport (only Diag's single small
+    panel, not Home or Status), the grid had leftover vertical space to
+    give out — and both of these default to distributing/stretching to fill
+    it: align-content:normal computes as stretch for grid (inflates the row
+    *tracks* themselves, invisibly, since plain elements like <header> have
+    no border of their own to reveal it), and align-items:stretch then also
+    stretches each item to fill its now-larger track. Both pinned to start
+    so every row (and the items in it) stays sized to its own content and
+    leftover space collects at the bottom instead, regardless of page.
+  */
+  align-content: start;
+  align-items: start;
+}
+
+.sunny-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 14px;
+}
+
+.sunny-eyebrow {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: .58;
+}
+
+.sunny-h1 {
+  margin: 4px 0 0;
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: .98;
+  letter-spacing: -0.04em;
+}
+
+.sunny-muted {
+  color: var(--sunny-muted);
+}
+
+.sunny-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+@media (max-width: 600px) {
+  .sunny-shell {
+    padding: 14px;
+  }
+}
+
+/*
+  Sunny's plant-garden visualizer (Home only) - decorative, data comes in
+  via props (see SunnyPlantVisualizer.jsx / PlantBand.jsx). Each plant's own
+  height/bloom/leaf-spread animation is computed as inline transforms in
+  PlantBand; the CSS here just supplies the shared transition timing and the
+  level-reactive glow, which is also where Light/Dark/Party differ. Hidden
+  below 860px so it never crowds Sunny on narrow viewports instead of
+  shrinking him.
+*/
+.sunny-plant-visualizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 110px;
+  padding: 0 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sunny-plant-band {
+  display: flex;
+  align-items: flex-end;
+  filter: drop-shadow(0 0 calc(var(--plant-level, .15) * 3px) rgba(255, 212, 71, .25));
+  transition: filter 300ms ease;
+}
+
+.plant-stem-group,
+.plant-head-group,
+.plant-leaf,
+.plant-husk {
+  transition: transform 160ms cubic-bezier(.22, .9, .32, 1);
+}
+
+.plant-stem { fill: var(--sunny-green); }
+.plant-leaf { fill: var(--sunny-green); }
+.plant-husk { fill: var(--sunny-green); opacity: .88; }
+.plant-cob { fill: var(--sunny-sunflower); }
+.plant-kernel-line { stroke: rgba(120, 78, 12, .35); stroke-width: 1; }
+.plant-bud { fill: var(--sunny-sunflower); }
+
+@media (max-width: 860px) {
+  .sunny-plant-visualizer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plant-stem-group,
+  .plant-head-group,
+  .plant-leaf,
+  .plant-husk,
+  .sunny-plant-band {
+    transition: none;
+  }
+}
+
+:root[data-sunny-background="dark"] .sunny-plant-band {
+  filter: drop-shadow(0 0 calc(3px + var(--plant-level, .15) * 11px) rgba(255, 212, 71, .5));
+}
+
+:root[data-sunny-background="party"] .sunny-plant-band {
+  filter: drop-shadow(0 0 calc(4px + var(--plant-level, .15) * 15px) rgba(255, 212, 71, .6));
+}
+:root[data-sunny-background="party"] .sunny-plant-band:nth-child(4n+2) {
+  filter: drop-shadow(0 0 calc(4px + var(--plant-level, .15) * 15px) rgba(199, 125, 255, .6));
+}
+:root[data-sunny-background="party"] .sunny-plant-band:nth-child(4n+3) {
+  filter: drop-shadow(0 0 calc(4px + var(--plant-level, .15) * 15px) rgba(255, 105, 180, .6));
+}

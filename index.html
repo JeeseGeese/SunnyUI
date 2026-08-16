@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunny UI Component Library</title>
+    <!-- Bungee/Baloo 2/JetBrains Mono: used by the boot sequence screen (SunnyBootSequence).
+         No project font binaries exist for these yet -- see design_handoff_sunny_boot/README.md. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Baloo+2:wght@700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <script>
+      // Mirrors src/theme/backgroundMode.js - keep the mode list and storage key in sync.
+      (function () {
+        var validModes = ["light", "dark", "party"];
+        var stored;
+        try {
+          stored = window.localStorage.getItem("sunny-background-mode");
+        } catch (e) {
+          stored = null;
+        }
+        var mode = validModes.indexOf(stored) !== -1 ? stored : "light";
+        document.documentElement.setAttribute("data-sunny-background", mode);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
